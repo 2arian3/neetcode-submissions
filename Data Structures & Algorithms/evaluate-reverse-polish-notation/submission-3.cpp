@@ -1,0 +1,31 @@
+class Solution {
+private:
+    unordered_set<string> ops = {
+        "+", "-", "*", "/"
+    };
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> s;
+
+        for (const string& token: tokens) {
+            if (ops.contains(token)) {
+                int b = s.top();
+                s.pop();
+                int a = s.top();
+                s.pop();
+
+                if (token == "+")
+                    s.push(a + b);
+                else if (token == "-")
+                    s.push(a - b);
+                else if (token == "*")
+                    s.push(a * b);
+                else
+                    s.push(a / b);
+            } else
+                s.push(stoi(token));
+        }
+
+        return s.top();
+    }
+};
